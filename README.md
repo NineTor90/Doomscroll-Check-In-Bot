@@ -38,14 +38,28 @@ change. Everyone in the chat votes; results reveal at midnight.
 6. Deploy. Add your bot to a Telegram group, run `/start`, and wait for the
    next scheduled post — or test immediately with `/postnow` and `/revealnow`.
 
-## Testing without waiting for the schedule
-- `/postnow` — manually triggers today's question
-- `/revealnow` — manually triggers the results reveal
+## Commands
+| Command | What it does |
+|---|---|
+| `/start` | Join daily questions in this chat (shows an inline "See commands" button) |
+| `/help` | Lists all commands and the daily schedule |
+| `/status` | Shows this chat's day streak |
+| `/postnow` | Manually triggers today's question |
+| `/revealnow` | Manually triggers the results reveal |
+
+## UI details
+- Each question is tagged with a topic emoji (e.g. 📱 for phone addiction, 🌙 for
+  sleep/screens) so questions have a visual identity at a glance.
+- The intro message and results use Telegram's HTML formatting (bold/italic) —
+  no external UI needed since Telegram renders it natively.
+- Results show a block-bar (`▓░`) per option, percentage, vote count, and a
+  🏆 on the leading answer.
+- A running day-streak is tracked per chat and surfaced via `/status`.
 
 ## Notes / next steps you might want
-- Right now results only show vote counts and percentages, not who voted
-  (polls are anonymous) — flip `is_anonymous=False` if you want per-user tracking.
-- The topic list in `bot.py` (`TOPICS`) is easy to extend — add more angles
-  (e.g. "mindful mornings", "notification fatigue") as you see what resonates.
-- Consider adding a `/history` command later that shows trends over the past
-  week using the data already being written to SQLite.
+- Results only show vote counts and percentages, not who voted (polls are
+  anonymous) — flip `is_anonymous=False` in `bot.py` if you want per-user tracking.
+- The topic list in `bot.py` (`TOPICS`, a dict of topic → emoji) is easy to
+  extend — add more angles (e.g. "mindful mornings") with their own emoji.
+- Consider a `/history` command showing trends over the past week using the
+  data already being written to SQLite.
